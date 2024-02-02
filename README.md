@@ -6,4 +6,6 @@ This repository contains the lecture notes I took from some courses of my Master
 
   * Algebraic Geometry I corresponds to Chapters 1-11,
   
-  * Algebraic Geometry II corresponds to Chapters 12-24.
+  * Algebraic Geometry II corresponds to Chapters 12-24;
+
+* Partial Differential Equations (figures still missing).
