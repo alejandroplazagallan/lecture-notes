@@ -1,5 +1,5 @@
 \documentclass[12pt]{article}
-\usepackage[utf 8]{inputenc}
+\usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage{amsmath}
@@ -15,6 +15,9 @@
 \usepackage{empheq}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows.meta}
 \usepackage[nottoc]{tocbibind}
 \usepackage[left=2cm,top=2.5cm,right=1.5cm,bottom=2.5cm]{geometry}
 \setlength{\parindent}{0pt}
@@ -1657,7 +1660,26 @@ $\int_\mathbb Re^{-\alpha(x+i\beta)^2}\,dx$, $\alpha>0$, $\beta\in\mathbb R$, is
 
 \begin{explanation}
 Contour integration in $\mathbb C$.
-%Figure Contour missing
+
+\begin{center}
+\begin{tikzpicture}
+\draw[->] (-5,0) -- (1,0);
+\draw (1,0) -- (5,0);
+\draw[->] (5,0) -- (5,2);
+\draw (5,2) -- (5,4);
+\draw[->] (5,4) -- (-1,4);
+\draw (-1,4) -- (-5,4);
+\draw[->] (-5,4) -- (-5,2);
+\draw (-5,2) -- (-5,0);
+\draw[fill] (0,0) circle (1pt);
+\draw[below] (0,0) node {$0$};
+\draw[above] (0,4) node {$\mathcal C$};
+\draw[below left] (-5,0) node {$-\infty$};
+\draw[below right] (5,0) node {$\infty$};
+\draw[above right] (5,4) node {$\infty+i\beta$};
+\draw[above left] (-5,4) node {$-\infty+i\beta$};
+\end{tikzpicture}
+\end{center}
 
 Let $\gamma_1=\mathbb R$, $\gamma_2=\mathbb R+i\beta$, $\mathcal C$ the counter-clockwise rectangle formed by $\gamma_1,\gamma_2$ and the vertical segments.
 
@@ -2421,7 +2443,34 @@ $n=1$, $U=(0,2)$, $u$ has a kink;
 u(x)&=\left\{\begin{array}{ll}x&0<x\leq1,\\1&1\leq x<2;\end{array}\right.\\
 v(x)&=\left\{\begin{array}{ll}1&0<x\leq1,\\0&1\leq x<2.\end{array}\right.
 \end{align*}
-%Figure Kink missing
+
+\begin{center}
+\begin{tikzpicture}[scale=4]
+\draw (0,0) -- (1,1);
+\draw (1,1) -- (2,1);
+\draw (-0.2,0) -- (2.2,0);
+\draw[dash pattern=on 4pt off 4pt] (1,0) -- (1,1);
+\draw[above left] (0.5,0.5) node {$u$};
+\draw[->] (1.3,0.8) -- (1.05,0.95);
+\draw[below right] (1.3,0.8) node {kink};
+\draw[below] (0,0) node {$0$};
+\draw[below] (1,0) node {$1$};
+\draw[below] (2,0) node {$2$};
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[scale=4]
+\draw (0,1) -- (1,1);
+\draw[gray] (-0.2,0) -- (2.2,0);
+\draw (1,0) -- (2,0);
+\draw[dash pattern=on 4pt off 4pt] (1,0) -- (1,1);
+\draw[below] (0.5,1) node {$v$};
+\draw[below] (0,0) node {$0$};
+\draw[below] (1,0) node {$1$};
+\draw[below] (2,0) node {$2$};
+\end{tikzpicture}
+\end{center}
 
 \begin{claim*}
 $v$ is the weak derivative of $u$, i.e., $u'=v$ in the weak sense.
@@ -2675,7 +2724,31 @@ Let $U\subseteq\mathbb R^n$ open. Let $\{u^{(n)}\}_{n=1}^\infty\subseteq W^{k,p}
 \begin{example*}
 $U=(0,1)$;
 \[u^{(n)}(x)=\left\{\begin{array}{ll}nx&0<x<\frac1n,\\1&\frac1n\leq x\leq1-\frac1n,\\-nx+n&1-\frac1n<x<1.\end{array}\right.\]
-%Figure Wloc missing
+
+\begin{center}
+\begin{tikzpicture}[scale=6]
+\draw (-0.1,0) -- (1.1,0);
+\draw (0,-0.1) -- (0,1.1);
+\draw (0,0) -- (1/4,1);
+\draw (1/4,1) -- (3/4,1);
+\draw (3/4,1) -- (1,0);
+\draw (-0.015,1) -- (0.015,1);
+\draw[above right] (3/4,1) node {$u^{(n)}$};
+\draw[left] (0,1) node {$1$};
+\draw (1/4,-0.015) -- (1/4,0.015);
+\draw[below] (1/4,0) node {$\frac1n$};
+\draw (3/4,-0.015) -- (3/4,0.015);
+\draw[below] (3/4,0) node {$1-\frac1n$};
+\draw[below] (1,0) node {$1$};
+%x'=x+r*(cos(a')-cos(a))
+%y'=y+r*(sin(a')-sin(a))
+\draw ({3/5+1/20*(sqrt(3)/2-1)},1/2*1/20) arc(30:-30:1/20);
+\draw ({2/5+1/20*(-sqrt(3)/2+1)},1/2*1/20) arc(150:210:1/20);
+\draw[above] (1/2,0) node {$V$};
+\draw[right] (0,-0.2) node {$U=(0,1)$};
+\draw[below left] (0,0) node {$0$};
+\end{tikzpicture}
+\end{center}
 
 $u^{(n)}\rightarrow1$ in $W_\text{loc}^{1,p}(0,1)$, but $u^{(n)}\not\rightarrow1$ in $W^{1,p}(0,1)$, because $\frac{du^{(n)}}{dx}\not\rightarrow0$ in $L^p(0,1)$.
 \end{example*}
@@ -3924,7 +3997,51 @@ since $||v||_{L^{p'}}<\infty$ since $v\in L^{p'}$ and $||u_n-u||_{L^p}\rightarro
 
 $\Omega=[0,1]$, $u_n$ oscillates between 2 values $A$ and $B$, $\lambda\in(0,1)$ volume fraction of region where $u_n=B$,
 \[u(x)=\left\{\begin{array}{cccc}B&\text{if}&\displaystyle{\frac kn<x<\frac{k+\lambda}n,}&k\in\mathbb N_0,\\\\A&\text{if}&\displaystyle{\frac{k+\lambda}n<x<\frac{k+1}n,}&k\in\mathbb N_0.\end{array}\right.\]
-%Figure Oscillations missing
+
+\begin{center}
+\begin{tikzpicture}[scale=10]
+\draw[->] (-0.1,0) -- (1.2,0);
+\draw[->] (0,-0.1) -- (0,0.6);
+\draw (0/6,1/2) -- (0/6+2/3*1/6,1/2);
+\draw (1/6,1/2) -- (1/6+2/3*1/6,1/2);
+\draw (2/6,1/2) -- (2/6+2/3*1/6,1/2);
+\draw (3/6,1/2) -- (3/6+2/3*1/6,1/2);
+\draw (4/6,1/2) -- (4/6+2/3*1/6,1/2);
+\draw (5/6,1/2) -- (5/6+2/3*1/6,1/2);
+\draw (0/6+2/3*1/6,1/5) -- (1/6,1/5);
+\draw (1/6+2/3*1/6,1/5) -- (2/6,1/5);
+\draw (2/6+2/3*1/6,1/5) -- (3/6,1/5);
+\draw (3/6+2/3*1/6,1/5) -- (4/6,1/5);
+\draw (4/6+2/3*1/6,1/5) -- (5/6,1/5);
+\draw (5/6+2/3*1/6,1/5) -- (6/6,1/5);
+\draw[dash pattern=on 4pt off 4pt] (0/6+2/3*1/6,1/2) -- (0/6+2/3*1/6,1/5);
+\draw[dash pattern=on 4pt off 4pt] (1/6+2/3*1/6,1/2) -- (1/6+2/3*1/6,1/5);
+\draw[dash pattern=on 4pt off 4pt] (2/6+2/3*1/6,1/2) -- (2/6+2/3*1/6,1/5);
+\draw[dash pattern=on 4pt off 4pt] (3/6+2/3*1/6,1/2) -- (3/6+2/3*1/6,1/5);
+\draw[dash pattern=on 4pt off 4pt] (4/6+2/3*1/6,1/2) -- (4/6+2/3*1/6,1/5);
+\draw[dash pattern=on 4pt off 4pt] (5/6+2/3*1/6,1/2) -- (5/6+2/3*1/6,1/5);
+\draw[dash pattern=on 4pt off 4pt] (1/6,1/5) -- (1/6,1/2);
+\draw[dash pattern=on 4pt off 4pt] (2/6,1/5) -- (2/6,1/2);
+\draw[dash pattern=on 4pt off 4pt] (3/6,1/5) -- (3/6,1/2);
+\draw[dash pattern=on 4pt off 4pt] (4/6,1/5) -- (4/6,1/2);
+\draw[dash pattern=on 4pt off 4pt] (5/6,1/5) -- (5/6,1/2);
+\draw (0,2/3*1/2+1/3*1/5) -- (1,2/3*1/2+1/3*1/5);
+\draw[left] (0,0.6) node {$u_n$};
+\draw[right] (1,2/3*1/2+1/3*1/5) node {$u$};
+\draw[right] (1.2,0) node {$x$};
+\draw (-0.01,1/2) -- (0.01,1/2);
+\draw[left] (0,1/2) node {$B$};
+\draw (-0.01,1/5) -- (0.01,1/5);
+\draw[left] (0,1/5) node {$A$};
+\draw[below left] (0,0) node {$0$};
+\draw (2/3*1/6,0.01) -- (2/3*1/6,-0.01);
+\draw[below] (2/3*1/6-0.01,0) node {$\lambda\frac1n$};
+\draw (1/6,0.01) -- (1/6,-0.01);
+\draw[below] (1/6,0) node {$\frac1n$};
+\draw (1,0.01) -- (1,-0.01);
+\draw[below] (1,0) node {$1$};
+\end{tikzpicture}
+\end{center}
 
 \[u_n\underset{L^p(\Omega)}\rightharpoonup u(x)\equiv\lambda B+(1-\lambda)A,\]
 \[||u_n-u||_{L^p(\Omega)}\equiv\text{const}>0.\]
