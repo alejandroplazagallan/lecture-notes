@@ -2740,10 +2740,8 @@ $U=(0,1)$;
 \draw (3/4,-0.015) -- (3/4,0.015);
 \draw[below] (3/4,0) node {$1-\frac{1}{n}$};
 \draw[below] (1,0) node {$1$};
-%x'=x+r*(cos(a')-cos(a))
-%y'=y+r*(sin(a')-sin(a))
-\draw ({3/5+1/20*(sqrt(3)/2-1)},1/2*1/20) arc(30:-30:1/20);
-\draw ({2/5+1/20*(-sqrt(3)/2+1)},1/2*1/20) arc(150:210:1/20);
+\draw (3/5-1/20,0)+(30:1/20) arc (30:-30:1/20);
+\draw (2/5+1/20,0)+(150:1/20) arc (150:210:1/20);
 \draw[above] (1/2,0) node {$V$};
 \draw[right] (0,-0.2) node {$U=(0,1)$};
 \draw[below left] (0,0) node {$0$};
@@ -3787,7 +3785,7 @@ Consider
 \end{empheq}
 where $\frac{\partial u}{\partial\nu}\coloneqq\nabla u(x)\cdot\nu$ is the normal derivative; $\Omega\subseteq\mathbb{R}^n$ open, bounded, connected, $C^1$ boundary.
 
-[Recall physical meaning: e.g., $u$ is the temperature and $\frac{\partial u}{\partial\nu}(x)$ is the heat flux through boundary at $x$] [$g=0$ means the domain is insulated] [solutions to (P), (N) are stationary solutions to heat equation $\frac{\partial u}{\partial t}-\Delta u=f$ in $\Omega$, $\frac{\partial u}{\partial\nu}=g$ on $\partial\Omega$].
+[Recall physical meaning: e.g., $u$ is the temperature and $\frac{\partial u}{\partial\nu}(x)$ is the heat flux through boundary at $x$] [$g=0$ means the domain is insulated] [solutions to \eqref{Poisson_Neumann}, \eqref{Neumann_Neumann} are stationary solutions to heat equation $\frac{\partial u}{\partial t}-\Delta u=f$ in $\Omega$, $\frac{\partial u}{\partial\nu}=g$ on $\partial\Omega$].
 
 Problem for Sobolev space/weak solution setting: we're used to looking for solutions $u\in H^1(\Omega)$, but this only means $\nabla u\in L^2(\Omega)$, so $\nabla u|_{\partial\Omega}$ undefined ($\partial\Omega$ has measure $0$).
 
