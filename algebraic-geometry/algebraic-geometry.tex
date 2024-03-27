@@ -5012,7 +5012,7 @@ R=k[x_1,\ldots,x_n]\arrow[rr,hook]\arrow[rd]&&\hat{R}=k[|x_1,\ldots,x_n|]\\
 &R^h\arrow[ru]
 \end{tikzcd}
 \]
-$R^h$ is called the <<henselization>> of $R$.
+$R^h$ is called the ``Henselization'' of $R$.
 \end{comment}
 
 \begin{definition}
@@ -6118,9 +6118,14 @@ This shows that if $s_0,\ldots,s_k\in H^0(X,\mathcal{L})$ that globally generate
 
 \begin{center}
 \begin{tikzpicture}
-\draw (-4,-3/2) -- (-4,3/2);
-\draw[smooth,samples=200,domain=-3/2:3/2] plot({((\x)^2)^(1/3)},\x);
-\draw[->] (-3,0) -- (-1,0);
+\newcommand{\xmax}{1.3}
+\newcommand{\larr}{2}
+\newcommand{\sep}{1}
+
+\draw (-2*\sep-\larr,-{-sqrt(\xmax)^3}) -- (-2*\sep-\larr,{-sqrt(\xmax)^3});
+\draw [smooth,domain=0:\xmax] plot(\x,{-sqrt(\x)^3});
+\draw [smooth,domain=0:\xmax] plot(\x,{sqrt(\x)^3});
+\draw [->] (-\sep-\larr,0) -- (-\sep,0);
 \end{tikzpicture}
 \end{center}
 
@@ -6128,10 +6133,16 @@ Some morphisms are not even injective:
 
 \begin{center}
 \begin{tikzpicture}
-\draw (-5,{-sqrt(2)}) -- (-5,{sqrt(2)});
-\draw[smooth,samples=100,domain=-1:1] plot(\x,{sqrt((\x)^(2)+(\x)^(3))});
-\draw[smooth,samples=100,domain=-1:1] plot(\x,{-sqrt((\x)^(2)+(\x)^(3))});
-\draw[->] (-4,0) -- (-2,0);
+\newcommand{\xmax}{1}
+\newcommand{\larr}{2}
+\newcommand{\sep}{1}
+
+\draw (-1-2*\sep-\larr,{-sqrt((\xmax)^(2)+(\xmax)^(3))}) -- (-1-2*\sep-\larr,{sqrt((\xmax)^(2)+(\xmax)^(3))});
+\draw [smooth,samples=75,domain=-1:0] plot(\x,{sqrt((\x)^(2)+(\x)^(3))});
+\draw [smooth,domain=0:\xmax] plot(\x,{sqrt((\x)^(2)+(\x)^(3))});
+\draw [smooth,samples=75,domain=-1:0] plot(\x,{-sqrt((\x)^(2)+(\x)^(3))});
+\draw [smooth,domain=0:\xmax] plot(\x,{-sqrt((\x)^(2)+(\x)^(3))});
+\draw [->] (-1-\sep-\larr,0) -- (-1-\sep,0);
 \end{tikzpicture}
 \end{center}
 \end{exercise}
@@ -6846,19 +6857,31 @@ $n=2$, $X=\mathbb{A}_k^2$, $\widetilde{X}\subseteq\mathbb{P}_k^1\times_kX$.
 
 \begin{center}
 \begin{tikzpicture}
-\draw[smooth,samples=100,domain=-1:3/2] plot({sqrt((\x)^(2)+(\x)^(3))-4},\x);
-\draw[smooth,samples=100,domain=-1:3/2] plot({-sqrt((\x)^(2)+(\x)^(3))-4},\x);
-\draw [fill] (-4,0) circle (2pt);
-\draw[smooth,samples=100,domain=-1.037184:3/2] plot({sqrt((\x)^(2)+(\x)^(3)+1/25)+4},\x);
-\draw[smooth,samples=100,domain=-1.037184:3/2] plot({0-sqrt((\x)^(2)+(\x)^(3)+1/25)+4},\x);
-\draw [fill] (21/5,0) circle (2pt);
-\draw [fill] (19/5,0) circle (2pt);
-\draw (5/2,0) -- (11/2,0);
-\draw[right] (11/2,0) node {$\mathbb{P}_k^1$};
-\draw[->] (3/2,0) -- (-3/2,0);
-\draw[above] (0,0) node {$\pi$};
-\draw (-11/2,0) node {\textbf{node}};
-\draw (-11/2,-1/2) node {(\emph{Knoten})};
+\newcommand{\ymax}{1.5}
+\newcommand{\ymin}{-1.037184}
+\newcommand{\linlen}{3}
+\newcommand{\reg}{0.04}
+\newcommand{\sep}{3.5}
+\newcommand{\textsep}{1.5}
+\newcommand{\ps}{2}
+
+\newcommand{\cnode}{-sqrt((\ymax)^(2)+(\ymax)^(3))-\sep/2}
+\newcommand{\cblup}{sqrt((\ymax)^(2)+(\ymax)^(3)+\reg)+\sep/2}
+\draw [smooth,samples=75,domain=-1:0] plot({sqrt((\x)^(2)+(\x)^(3))+\cnode},\x);
+\draw [smooth,domain=0:\ymax] plot({sqrt((\x)^(2)+(\x)^(3))+\cnode},\x);
+\draw [smooth,samples=75,domain=-1:0] plot({-sqrt((\x)^(2)+(\x)^(3))+\cnode},\x);
+\draw [smooth,domain=0:\ymax] plot({-sqrt((\x)^(2)+(\x)^(3))+\cnode},\x);
+\draw [fill] ({\cnode},0) circle (\ps pt);
+\draw [smooth,samples=150,domain=\ymin:\ymax] plot({sqrt((\x)^(2)+(\x)^(3)+\reg)+\cblup},\x);
+\draw [smooth,samples=150,domain=\ymin:\ymax] plot({-sqrt((\x)^(2)+(\x)^(3)+\reg)+\cblup},\x);
+\draw [fill] ({\cblup+sqrt(\reg)},0) circle (\ps pt);
+\draw [fill] ({\cblup-sqrt(\reg)},0) circle (\ps pt);
+\draw ({\cblup-\linlen/2},0) -- ({\cblup+\linlen/2},0);
+\draw [right] ({\cblup+\linlen/2},0) node {$\mathbb{P}_k^1$};
+\draw [->] (\sep/2,0) -- (-\sep/2,0);
+\draw [above] (0,0) node {$\pi$};
+\draw [above] ({\cnode-\textsep},0) node {\textbf{node}};
+\draw [below] ({\cnode-\textsep},0) node {(\emph{Knoten})};
 \end{tikzpicture}
 \end{center}
 
@@ -6866,9 +6889,13 @@ $n=2$, $X=\mathbb{A}_k^2$, $\widetilde{X}\subseteq\mathbb{P}_k^1\times_kX$.
 
 \begin{center}
 \begin{tikzpicture}
-\draw[smooth,samples=200,domain=-3/2:3/2] plot({((\x)^2)^(1/3)},\x);
-\draw (-1,0) node {\textbf{cusp}};
-\draw (-1,-1/2) node {(\emph{Spitze})};
+\newcommand{\xmax}{1.3}
+\newcommand{\textsep}{1}
+
+\draw [smooth,domain=0:\xmax] plot(\x,{sqrt(\x)^3});
+\draw [smooth,domain=0:\xmax] plot(\x,{-sqrt(\x)^3});
+\draw [above] (-\textsep,0) node {\textbf{cusp}};
+\draw [below] (-\textsep,0) node {(\emph{Spitze})};
 \end{tikzpicture}
 \end{center}
 
@@ -6876,8 +6903,12 @@ $n=2$, $X=\mathbb{A}_k^2$, $\widetilde{X}\subseteq\mathbb{P}_k^1\times_kX$.
 
 \begin{center}
 \begin{tikzpicture}
-\draw[smooth,samples=200,domain=-3/2:3/2] plot({((\x)^2)^(1/5)},\x);
-\draw (-1,1) node {cusp};
+\newcommand{\xmax}{1.2}
+\coordinate (text) at (-1,1);
+
+\draw [smooth,domain=0:\xmax] plot(\x,{sqrt(\x)^5});
+\draw [smooth,domain=0:\xmax] plot(\x,{-sqrt(\x)^5});
+\draw (text) node {cusp};
 \end{tikzpicture}
 \end{center}
 \end{enumerate}
@@ -6897,26 +6928,36 @@ $n=3$. $X_n=\{xy-z^n=0\}\subseteq\mathbb{A}_k^3$.
 \begin{center}
 \begin{tikzpicture}
 %ellipses: (x/a)^2+((y-h)/b)^2=1, (x/a)^2+((y+h)/b)^2=1
-%tangent lines: y=sqrt(h^2-b^2)/a*x, y=-sqrt(h^2-b^2)/a*x
-%tangency points: x=a*sqrt(1-(b/h)^2), x=-a*sqrt(1-(b/h)^2)
-\draw (-3,3/2) ellipse (1 and {sqrt(3)/3});
-\draw[dash pattern=on 4pt off 4pt] ({sqrt(69)/9-3},-23/18) arc (acos(sqrt(69)/9):180-acos(sqrt(69)/9):1 and {sqrt(3)/3});
-\draw ({-sqrt(69)/9-3},-23/18) arc (180-acos(sqrt(69)/9):360+acos(sqrt(69)/9):1 and {sqrt(3)/3});
-\draw ({-sqrt(69)/9-3},23/18) -- ({sqrt(69)/9-3},-23/18);
-\draw ({sqrt(69)/9-3},23/18) -- ({-sqrt(69)/9-3},-23/18);
-\draw [fill] (-3,0) circle (2pt);
-\draw (3,3/2) ellipse (1 and {sqrt(3)/3});
-\draw[dash pattern=on 4pt off 4pt] (4,-3/2) arc (0:180:1 and {sqrt(3)/3});
-\draw (2,-3/2) arc (180:360:1 and {sqrt(3)/3});
-\draw[dash pattern=on 4pt off 4pt] (4,0) arc (0:180:1 and {sqrt(3)/3});
-\draw (2,0) arc (180:360:1 and {sqrt(3)/3});
-\draw (2,3/2) -- (2,-3/2);
-\draw (4,3/2) -- (4,-3/2);
-\draw[->] (4/3,0) -- (-2,0);
-\draw[above] (-1/3,0) node {$\pi$};
-\draw[->] (47/10,3/5) -- (21/5,1/5);
-\draw[above right] (47/10,3/5) node {$\mathbb{P}_k^1$};
-\draw[left] (-4,0) node {$A_1$ singularity};
+%tangency points: x=+-a*sqrt(1-(b/h)^2), y=+-((b/h)^2-h)
+\newcommand{\hvar}{1.5}
+\newcommand{\avar}{1}
+\newcommand{\bvar}{sqrt(3)/3}
+\newcommand{\sep}{3}
+\newcommand{\pisep}{0.5}
+\newcommand{\ps}{2}
+\newcommand{\psep}{0.2}
+\newcommand{\xlep}{0.5}
+
+\newcommand{\xtan}{\avar*sqrt(1-(\bvar/\hvar)^2)}
+\newcommand{\ytan}{-(\bvar)^2/\hvar+\hvar}
+\draw (-\sep,\hvar) ellipse ({\avar} and {\bvar});
+\draw [dash pattern=on 4pt off 4pt] ({\xtan-\sep},{-(\ytan)}) arc (acos((\xtan)/\avar):180-acos((\xtan)/\avar):{\avar} and {\bvar});
+\draw ({-(\xtan)-\sep},{-(\ytan)}) arc (180-acos((\xtan)/\avar):360+acos((\xtan)/\avar):{\avar} and {\bvar});
+\draw ({-(\xtan)-\sep},{\ytan}) -- ({\xtan-\sep},{-(\ytan)});
+\draw ({\xtan-\sep},{\ytan}) -- ({-(\xtan)-\sep},{-(\ytan)});
+\draw [fill] (-\sep,0) circle (\ps pt);
+\draw (\sep,\hvar) ellipse ({\avar} and {\bvar});
+\draw [dash pattern=on 4pt off 4pt] (\avar+\sep,-\hvar) arc (0:180:{\avar} and {\bvar});
+\draw (-\avar+\sep,-\hvar) arc (180:360:{\avar} and {\bvar});
+\draw [dash pattern=on 4pt off 4pt] (\avar+\sep,0) arc (0:180:{\avar} and {\bvar});
+\draw (-\avar+\sep,0) arc (180:360:{\avar} and {\bvar});
+\draw (-\avar+\sep,\hvar) -- (-\avar+\sep,-\hvar);
+\draw (\avar+\sep,\hvar) -- (\avar+\sep,-\hvar);
+\draw [->] (-\avar+\sep-\pisep,0) -- (\avar-\sep,0);
+\draw [above] (-\pisep/2,0) node {$\pi$};
+\draw [->] (\avar+\sep+\psep+\xlep,\psep+\xlep) -- (\avar+\sep+\psep,\psep);
+\draw [above right] (\avar+\sep+\psep+\xlep,\psep+\xlep) node {$\mathbb{P}_k^1$};
+\draw [left] (-\avar-\sep,0) node {$A_1$ singularity};
 \end{tikzpicture}
 \end{center}
 \end{exercise}
@@ -7272,17 +7313,27 @@ In Question \ref{question_isomorphism}, does there even exist $\pi$ such that
 
 \begin{center}
 \begin{tikzpicture}
-\draw[smooth,domain=-1:1] plot({sqrt((\x)^2+1)-4},\x);
-\draw[smooth,domain=-1:1] plot({-sqrt((\x)^2+1)-4},\x);
-\draw[smooth,domain=-2:2] plot(\x-4,{(\x)^2/10});
-\draw (-1,3/2) -- (-1,-3/2);
-\draw[samples=100,smooth,domain=-1:1/2] plot(\x+1,{sqrt((\x)^2+(\x)^3)});
-\draw[samples=100,smooth,domain=-1:1/2] plot(\x+1,{-sqrt((\x)^2+(\x)^3)});
-\draw (-3/4+4,0) -- (3/4+4,0);
-\draw (4,3/4) -- (4,-3/4);
-\draw (-3/4+4,3/4) -- (3/4+4,-3/4);
-\draw (-3/4+4,-3/4) -- (3/4+4,3/4);
-\draw (12/5,3/2) node {not};
+\newcommand{\xpar}{2}
+\newcommand{\para}{0.1}
+\newcommand{\yhyp}{1}
+\newcommand{\xnode}{0.5}
+\newcommand{\xstar}{0.75}
+\newcommand{\ybar}{1.5}
+\newcommand{\sep}{1.5}
+
+\draw [smooth,domain=-\yhyp:\yhyp] plot({sqrt((\x)^2+1)-\sep-\xpar},\x);
+\draw [smooth,domain=-\yhyp:\yhyp] plot({-sqrt((\x)^2+1)-\sep-\xpar},\x);
+\draw [smooth,domain=-\xpar:\xpar] plot(\x-\sep-\xpar,{\para*(\x)^2});
+\draw (0,-\ybar) -- (0,\ybar);
+\draw [samples=75,smooth,domain=-1:0] plot(\x+\sep+1,{sqrt((\x)^2+(\x)^3)});
+\draw [smooth,domain=0:\xnode] plot(\x+\sep+1,{sqrt((\x)^2+(\x)^3)});
+\draw [samples=75,smooth,domain=-1:0] plot(\x+\sep+1,{-sqrt((\x)^2+(\x)^3)});
+\draw [smooth,domain=0:\xnode] plot(\x+\sep+1,{-sqrt((\x)^2+(\x)^3)});
+\draw (2*\sep+1+\xnode,0) -- (2*\xstar+2*\sep+1+\xnode,0);
+\draw (\xstar+2*\sep+1+\xnode,\xstar) -- (\xstar+2*\sep+1+\xnode,-\xstar);
+\draw (2*\sep+1+\xnode,\xstar) -- (2*\xstar+2*\sep+1+\xnode,-\xstar);
+\draw (2*\sep+1+\xnode,-\xstar) -- (2*\xstar+2*\sep+1+\xnode,\xstar);
+\draw (3*\sep/2+1+\xnode,\ybar) node {not};
 \end{tikzpicture}
 \end{center}
 

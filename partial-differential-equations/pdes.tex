@@ -584,7 +584,7 @@ If $u(x)=F(|x|)$ for some $F\in C^2((0,\infty))$, $u:\mathbb{R}^n\setminus\{0\}\
 \end{theorem}
 \end{summary}
 
-\subsection[Poisson's equation in \texorpdfstring{$\mathbb{R}^n$}{R\^{}n}]{Poisson's equation in \texorpdfstring{$\boldsymbol{\mathbb{R}^n}$}{R\^{}n}}
+\subsection[Poisson's equation in \texorpdfstring{$\mathbb{R}^n$}{R\textasciicircum n}]{Poisson's equation in \texorpdfstring{$\boldsymbol{\mathbb{R}^n}$}{R\textasciicircum n}}
 The fundamental theorem of calculus gives a solution for the ODE $y'=f$, $y:\mathbb{R}\rightarrow\mathbb{R}$, whose integral formula is
 \[y(x)=\int_{x_0}^xf(s)\,ds+C=\int_{\mathbb{R}}\boldsymbol{1}_{[x_0,x]}(s)f(s)\,ds.\]
 
@@ -1663,21 +1663,25 @@ Contour integration in $\mathbb{C}$.
 
 \begin{center}
 \begin{tikzpicture}
-\draw[->] (-5,0) -- (1,0);
-\draw (1,0) -- (5,0);
-\draw[->] (5,0) -- (5,2);
-\draw (5,2) -- (5,4);
-\draw[->] (5,4) -- (-1,4);
-\draw (-1,4) -- (-5,4);
-\draw[->] (-5,4) -- (-5,2);
-\draw (-5,2) -- (-5,0);
-\draw[fill] (0,0) circle (1pt);
-\draw[below] (0,0) node {$0$};
-\draw[above] (0,4) node {$\mathcal{C}$};
-\draw[below left] (-5,0) node {$-\infty$};
-\draw[below right] (5,0) node {$\infty$};
-\draw[above right] (5,4) node {$\infty+i\beta$};
-\draw[above left] (-5,4) node {$-\infty+i\beta$};
+\newcommand{\infvar}{5}
+\newcommand{\betavar}{4}
+\newcommand{\arr}{1}
+
+\draw [->] (-\infvar,0) -- (\arr,0);
+\draw (\arr,0) -- (\infvar,0);
+\draw [->] (\infvar,0) -- (\infvar,\betavar/2);
+\draw (\infvar,\betavar/2) -- (\infvar,\betavar);
+\draw [->] (\infvar,\betavar) -- (-\arr,\betavar);
+\draw (-\arr,\betavar) -- (-\infvar,\betavar);
+\draw [->] (-\infvar,\betavar) -- (-\infvar,\betavar/2);
+\draw (-\infvar,\betavar/2) -- (-\infvar,0);
+\draw [fill] (0,0) circle (1pt);
+\draw [below] (0,0) node {$0$};
+\draw [above] (0,\betavar) node {$\mathcal{C}$};
+\draw [below left] (-\infvar,0) node {$-\infty$};
+\draw [below right] (\infvar,0) node {$\infty$};
+\draw [above right] (\infvar,\betavar) node {$\infty+i\beta$};
+\draw [above left] (-\infvar,\betavar) node {$-\infty+i\beta$};
 \end{tikzpicture}
 \end{center}
 
@@ -1716,7 +1720,7 @@ is the 1D Gaussian, normalized such that $\int g=1$.
 \end{example*}
 
 %09/06
-\subsection[Solving the heat equation in \texorpdfstring{$\mathbb{R}^n$}{R\^{}n}]{Solving the heat equation in \texorpdfstring{$\boldsymbol{\mathbb{R}^n}$}{R\^{}n}}
+\subsection[Solving the heat equation in \texorpdfstring{$\mathbb{R}^n$}{R\textasciicircum n}]{Solving the heat equation in \texorpdfstring{$\boldsymbol{\mathbb{R}^n}$}{R\textasciicircum n}}
 %Subsection 3.4
 \begin{equation}\tag{H}\label{heat_eq}
 \frac{\partial u}{\partial t}=D\Delta u\ \text{
@@ -2344,7 +2348,7 @@ Standard choice for $-\Delta u=f$: $u\in W^{2,p}(U)=X$, $f\in L^p(U)=Y$.
 In Section \ref{Poisson_general} we'll use this to prove existence and uniqueness for Poisson's equation in general domains $U$.
 
 \setcounter{subsection}{-1}
-\subsection[Revision of \texorpdfstring{$L^p$}{L\^{}p} spaces]{Revision of \texorpdfstring{$\boldsymbol{L^p}$}{L\^p} spaces}
+\subsection[Revision of \texorpdfstring{$L^p$}{L\textasciicircum p} spaces]{Revision of \texorpdfstring{$\boldsymbol{L^p}$}{L\textasciicircum p} spaces}
 %Subsection 5.0
 Let $U\subseteq\mathbb{R}^n$ measurable, $1\leq p\leq\infty$.
 \[L^p(U)\coloneqq\{u:U\rightarrow\mathbb{R}\,|\,u\text{ measurable},||u||_p<\infty\},\]
@@ -2446,29 +2450,37 @@ v(x)&=\left\{\begin{array}{ll}1&0<x\leq1,\\0&1\leq x<2.\end{array}\right.
 
 \begin{center}
 \begin{tikzpicture}[scale=4]
+\newcommand{\exc}{0.2}
+\newcommand{\sep}{0.05}
+\coordinate (kink) at (1.3,0.8);
+
 \draw (0,0) -- (1,1);
 \draw (1,1) -- (2,1);
-\draw (-0.2,0) -- (2.2,0);
-\draw[dash pattern=on 4pt off 4pt] (1,0) -- (1,1);
-\draw[above left] (0.5,0.5) node {$u$};
-\draw[->] (1.3,0.8) -- (1.05,0.95);
-\draw[below right] (1.3,0.8) node {kink};
-\draw[below] (0,0) node {$0$};
-\draw[below] (1,0) node {$1$};
-\draw[below] (2,0) node {$2$};
+\draw (-\exc,0) -- (2+\exc,0);
+\draw [dash pattern=on 4pt off 4pt] (1,0) -- (1,1);
+\draw [above left] (1/2,1/2) node {$u$};
+\draw [->] (kink) -- (1+\sep,1-\sep);
+\draw [below right] (kink) node {kink};
+\draw [below] (0,0) node {$0$};
+\draw [below] (1,0) node {$1$};
+\draw [below] (2,0) node {$2$};
 \end{tikzpicture}
 \end{center}
 
 \begin{center}
 \begin{tikzpicture}[scale=4]
+\newcommand{\exc}{0.2}
+\newcommand{\tickw}{0.025}
+
 \draw (0,1) -- (1,1);
-\draw[gray] (-0.2,0) -- (2.2,0);
+\draw [color=gray] (-\exc,0) -- (2+\exc,0);
 \draw (1,0) -- (2,0);
-\draw[dash pattern=on 4pt off 4pt] (1,0) -- (1,1);
-\draw[below] (0.5,1) node {$v$};
-\draw[below] (0,0) node {$0$};
-\draw[below] (1,0) node {$1$};
-\draw[below] (2,0) node {$2$};
+\draw [dash pattern=on 4pt off 4pt] (1,0) -- (1,1);
+\draw [below] (1/2,1) node {$v$};
+\draw (0,-\tickw) -- (0,\tickw);
+\draw [below] (0,-\tickw) node {$0$};
+\draw [below] (1,-\tickw) node {$1$};
+\draw [below] (2,-\tickw) node {$2$};
 \end{tikzpicture}
 \end{center}
 
@@ -2727,24 +2739,33 @@ $U=(0,1)$;
 
 \begin{center}
 \begin{tikzpicture}[scale=6]
-\draw (-0.1,0) -- (1.1,0);
-\draw (0,-0.1) -- (0,1.1);
-\draw (0,0) -- (1/4,1);
-\draw (1/4,1) -- (3/4,1);
-\draw (3/4,1) -- (1,0);
-\draw (-0.015,1) -- (0.015,1);
-\draw[above right] (3/4,1) node {$u^{(n)}$};
-\draw[left] (0,1) node {$1$};
-\draw (1/4,-0.015) -- (1/4,0.015);
-\draw[below] (1/4,0) node {$\frac{1}{n}$};
-\draw (3/4,-0.015) -- (3/4,0.015);
-\draw[below] (3/4,0) node {$1-\frac{1}{n}$};
-\draw[below] (1,0) node {$1$};
-\draw (3/5-1/20,0)+(30:1/20) arc (30:-30:1/20);
-\draw (2/5+1/20,0)+(150:1/20) arc (150:210:1/20);
-\draw[above] (1/2,0) node {$V$};
-\draw[right] (0,-0.2) node {$U=(0,1)$};
-\draw[below left] (0,0) node {$0$};
+%n=4
+\newcommand{\nvar}{4}
+\newcommand{\exc}{0.1}
+\newcommand{\tickw}{0.02}
+\newcommand{\sep}{0.2}
+\newcommand{\vlen}{0.2}
+
+\newcommand{\bezx}{\tickw/2}
+\newcommand{\bezy}{\tickw/2}
+\draw (-\exc,0) -- (1+\exc,0);
+\draw (0,-\exc) -- (0,1+\exc);
+\draw (0,0) -- (1/\nvar,1);
+\draw (1/\nvar,1) -- (1-1/\nvar,1);
+\draw (1-1/\nvar,1) -- (1,0);
+\draw (-\tickw,1) -- (\tickw,1);
+\draw [above right] (1-1/\nvar,1) node {$u^{(n)}$};
+\draw [left] (-\tickw,1) node {$1$};
+\draw (1/\nvar,-\tickw) -- (1/\nvar,\tickw);
+\draw [below] (1/\nvar,-\tickw) node {$\frac{1}{n}$};
+\draw (1-1/\nvar,-\tickw) -- (1-1/\nvar,\tickw);
+\draw [below] (1-1/\nvar,-\tickw) node {$1-\frac{1}{n}$};
+\draw [below] (1,-\tickw) node {$1$};
+\draw ({(1-\vlen)/2},-\tickw) .. controls ({(1-\vlen)/2-\bezx},-\bezy) and ({(1-\vlen)/2-\bezx},\bezy) .. ({(1-\vlen)/2},\tickw);
+\draw ({(1+\vlen)/2},-\tickw) .. controls ({(1+\vlen)/2+\bezx},-\bezy) and ({(1+\vlen)/2+\bezx},\bezy) .. ({(1+\vlen)/2},\tickw);
+\draw [above] (1/2,0) node {$V$};
+\draw [right] (0,-\sep) node {$U=(0,1)$};
+\draw [below left] (-\tickw,-\tickw) node {$0$};
 \end{tikzpicture}
 \end{center}
 
@@ -3998,46 +4019,43 @@ $\Omega=[0,1]$, $u_n$ oscillates between 2 values $A$ and $B$, $\lambda\in(0,1)$
 
 \begin{center}
 \begin{tikzpicture}[scale=10]
-\draw[->] (-0.1,0) -- (1.2,0);
-\draw[->] (0,-0.1) -- (0,0.6);
-\draw (0/6,1/2) -- (0/6+2/3*1/6,1/2);
-\draw (1/6,1/2) -- (1/6+2/3*1/6,1/2);
-\draw (2/6,1/2) -- (2/6+2/3*1/6,1/2);
-\draw (3/6,1/2) -- (3/6+2/3*1/6,1/2);
-\draw (4/6,1/2) -- (4/6+2/3*1/6,1/2);
-\draw (5/6,1/2) -- (5/6+2/3*1/6,1/2);
-\draw (0/6+2/3*1/6,1/5) -- (1/6,1/5);
-\draw (1/6+2/3*1/6,1/5) -- (2/6,1/5);
-\draw (2/6+2/3*1/6,1/5) -- (3/6,1/5);
-\draw (3/6+2/3*1/6,1/5) -- (4/6,1/5);
-\draw (4/6+2/3*1/6,1/5) -- (5/6,1/5);
-\draw (5/6+2/3*1/6,1/5) -- (6/6,1/5);
-\draw[dash pattern=on 4pt off 4pt] (0/6+2/3*1/6,1/2) -- (0/6+2/3*1/6,1/5);
-\draw[dash pattern=on 4pt off 4pt] (1/6+2/3*1/6,1/2) -- (1/6+2/3*1/6,1/5);
-\draw[dash pattern=on 4pt off 4pt] (2/6+2/3*1/6,1/2) -- (2/6+2/3*1/6,1/5);
-\draw[dash pattern=on 4pt off 4pt] (3/6+2/3*1/6,1/2) -- (3/6+2/3*1/6,1/5);
-\draw[dash pattern=on 4pt off 4pt] (4/6+2/3*1/6,1/2) -- (4/6+2/3*1/6,1/5);
-\draw[dash pattern=on 4pt off 4pt] (5/6+2/3*1/6,1/2) -- (5/6+2/3*1/6,1/5);
-\draw[dash pattern=on 4pt off 4pt] (1/6,1/5) -- (1/6,1/2);
-\draw[dash pattern=on 4pt off 4pt] (2/6,1/5) -- (2/6,1/2);
-\draw[dash pattern=on 4pt off 4pt] (3/6,1/5) -- (3/6,1/2);
-\draw[dash pattern=on 4pt off 4pt] (4/6,1/5) -- (4/6,1/2);
-\draw[dash pattern=on 4pt off 4pt] (5/6,1/5) -- (5/6,1/2);
-\draw (0,2/3*1/2+1/3*1/5) -- (1,2/3*1/2+1/3*1/5);
-\draw[left] (0,0.6) node {$u_n$};
-\draw[right] (1,2/3*1/2+1/3*1/5) node {$u$};
-\draw[right] (1.2,0) node {$x$};
-\draw (-0.01,1/2) -- (0.01,1/2);
-\draw[left] (0,1/2) node {$B$};
-\draw (-0.01,1/5) -- (0.01,1/5);
-\draw[left] (0,1/5) node {$A$};
-\draw[below left] (0,0) node {$0$};
-\draw (2/3*1/6,0.01) -- (2/3*1/6,-0.01);
-\draw[below] (2/3*1/6-0.01,0) node {$\lambda\frac{1}{n}$};
-\draw (1/6,0.01) -- (1/6,-0.01);
-\draw[below] (1/6,0) node {$\frac{1}{n}$};
-\draw (1,0.01) -- (1,-0.01);
-\draw[below] (1,0) node {$1$};
+%A=0.2
+%B=0.5
+%n=6
+%lambda=2/3
+\newcommand{\Avar}{0.2}
+\newcommand{\Bvar}{0.5}
+\newcommand{\nvar}{6}
+\newcommand{\lambdavar}{2/3}
+\newcommand{\exc}{0.1}
+\newcommand{\tickw}{0.01}
+\newcommand{\sep}{0.01}
+
+\draw [->] (-\exc,0) -- (1+\exc,0);
+\draw [->] (0,-\exc) -- (0,\Bvar+\exc);
+\foreach \kvar in {1,...,\nvar} {
+\draw ({(\kvar-1)/\nvar},\Bvar) -- ({(\kvar-1)/\nvar+\lambdavar/\nvar},\Bvar);
+\draw ({(\kvar-1)/\nvar+\lambdavar/\nvar},\Avar) -- (\kvar/\nvar,\Avar);
+\draw [dash pattern=on 4pt off 4pt] ({(\kvar-1)/\nvar+\lambdavar/\nvar},\Bvar) -- ({(\kvar-1)/\nvar+\lambdavar/\nvar},\Avar);
+\ifnum\kvar<\nvar
+\draw [dash pattern=on 4pt off 4pt] (\kvar/\nvar,\Avar) -- (\kvar/\nvar,\Bvar);
+\fi
+}
+\draw (0,{\Bvar*\lambdavar+\Avar*(1-\lambdavar)}) -- (1,{\Bvar*\lambdavar+\Avar*(1-\lambdavar)});
+\draw [left] (0,\Bvar+\exc) node {$u_n$};
+\draw [right] (1,{\Bvar*\lambdavar+\Avar*(1-\lambdavar)}) node {$u$};
+\draw [right] (1+\exc,0) node {$x$};
+\draw (-\tickw,\Bvar) -- (\tickw,\Bvar);
+\draw [left] (-\tickw,\Bvar) node {$B$};
+\draw (-\tickw,\Avar) -- (\tickw,\Avar);
+\draw [left] (-\tickw,\Avar) node {$A$};
+\draw [below left] (-\tickw,-\tickw) node {$0$};
+\draw (\lambdavar/\nvar,-\tickw) -- (\lambdavar/\nvar,\tickw);
+\draw [below] (\lambdavar/\nvar-\sep,-\tickw) node {$\lambda\frac{1}{n}$};
+\draw (1/\nvar,-\tickw) -- (1/\nvar,\tickw);
+\draw [below] (1/\nvar,-\tickw) node {$\frac{1}{n}$};
+\draw (1,-\tickw) -- (1,\tickw);
+\draw [below] (1,-\tickw) node {$1$};
 \end{tikzpicture}
 \end{center}
 
